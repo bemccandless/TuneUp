@@ -1,0 +1,38 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+
+  dependencies {
+    classpath "com.moowork.gradle:gradle-node-plugin:1.1.1"
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.moowork.node'
+
+node {
+  version = '7.4.0'
+  npmVersion = '3.8.9'
+  download = true
+}
+
+task ngBuild(dependsOn: npmInstall, type: NodeTask) {
+  script = file('./node_modules/@angular/cli/bin/ng')
+  args = ['build']
+}
+
+task ngTest(dependsOn: npmInstall, type: NodeTask) {
+  script = file('./node_modules/@angular/cli/bin/ng')
+  args = ['test']
+}
+
+build.dependsOn ngBuild
+test.dependsOn ngTest
+
+project.jar.dependsOn ngBuild
+project.jar.from('dist') {
+  into("META-INF/resources")
+}
