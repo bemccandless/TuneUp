@@ -1,6 +1,6 @@
 package com.bem.development.tuneup.config;
 
-import com.bem.development.tuneup.login.Facebook;
+import com.bem.development.tuneup.login.FacebookProperties;
 import com.bem.development.tuneup.vehicle.VehicleService;
 import com.bem.development.tuneup.vehicle.VehicleServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ public class AppConfig {
     }
 
     @Bean
-    public Facebook facebook() {
-        return new Facebook();
+    public FacebookProperties facebook() {
+        return new FacebookProperties();
     }
 }
